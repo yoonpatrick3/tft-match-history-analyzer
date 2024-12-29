@@ -17,6 +17,10 @@ if (!RIOT_API_KEY) {
     throw new Error("Missing Riot API Key! Make sure it's set in the .env file.");
 }
 
+app.get("/", (req, res) => {
+    res.send("Server is running!");
+});
+
 app.get("/api/match-history", async (req, res) => {
     try {
         const { username, tagline } = req.query;
