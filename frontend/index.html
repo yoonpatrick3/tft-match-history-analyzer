@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TFT Helper</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>TFT Match History Analyzer</h1>
+    <form id="usernameForm">
+        <input type="text" id="username" placeholder="Enter Riot Username and Tagline (e.g. Dishsoap#NA2)" required />
+        <button type="submit">Get Match History</button>
+    </form>
+    <div id="output">
+        <div id="loading" style="display: none;">
+            <div class="spinner"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
