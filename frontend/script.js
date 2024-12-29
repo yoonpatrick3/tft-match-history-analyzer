@@ -21,7 +21,7 @@ document.getElementById("usernameForm").addEventListener("submit", async (e) => 
 
     try {
         const response = await fetch(
-            `https://tft-match-history-analyzer.herokuapp.com/api/match-history?username=${encodeURIComponent(username)}&tagline=${encodeURIComponent(tagline)}`
+            `https://tft-match-history-analyzer-26116b41405e.herokuapp.com/api/match-history?username=${encodeURIComponent(username)}&tagline=${encodeURIComponent(tagline)}`
         );
         const data = await response.json();
 

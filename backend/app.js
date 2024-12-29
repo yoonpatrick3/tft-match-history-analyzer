@@ -17,10 +17,6 @@ if (!RIOT_API_KEY) {
     throw new Error("Missing Riot API Key! Make sure it's set in the .env file.");
 }
 
-app.get("/", (req, res) => {
-    res.send("Server is running!");
-});
-
 app.get("/api/match-history", async (req, res) => {
     try {
         const { username, tagline } = req.query;
@@ -65,7 +61,7 @@ app.get("/api/match-history", async (req, res) => {
     }
 });
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
