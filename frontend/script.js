@@ -1,18 +1,30 @@
 document.getElementById("usernameForm").addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const username = document.getElementById("username").value;
+    const input = document.getElementById("username").value.trim();
     const output = document.getElementById("output");
     const loading = document.getElementById("loading");
 
-    // Show loading spinner
+    if (!input.includes("#")) {
+        output.innerHTML = "Invalid input format. Please use the format RiotID#Tagline.";
+        return;
+    }
+
+    const [username, tagline] = input.split("#");
+
+    if (!username || !tagline) {
+        output.innerHTML = "Invalid input. Make sure both RiotID and Tagline are provided.";
+        return;
+    }
+
     loading.style.display = "flex";
 
     try {
-        const response = await fetch(`https://tft-match-history-analyzer.herokuapp.com/api/match-history/${encodeURIComponent(username)}`);
+        const response = await fetch(
+            `https://tft-match-history-analyzer.herokuapp.com/api/match-history?username=${encodeURIComponent(username)}&tagline=${encodeURIComponent(tagline)}`
+        );
         const data = await response.json();
 
-        // Hide loading spinner
         loading.style.display = "none";
 
         if (data.error) {
@@ -34,7 +46,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const placeholder = input.getAttribute("placeholder");
         const tempSpan = document.createElement("span");
 
-        // Set span styling to match the input's font and ensure accurate width calculation
         tempSpan.style.font = window.getComputedStyle(input).font;
         tempSpan.style.visibility = "hidden";
         tempSpan.style.whiteSpace = "nowrap";

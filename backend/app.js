@@ -17,18 +17,20 @@ if (!RIOT_API_KEY) {
     throw new Error("Missing Riot API Key! Make sure it's set in the .env file.");
 }
 
-app.get("/api/match-history/:username", async (req, res) => {
+app.get("/api/match-history", async (req, res) => {
     try {
-        const { username } = req.params;
-        const [playerName, tagline] = username.split("#");
+        const { username, tagline } = req.query;
+
+        if (!username || !tagline) {
+            return res.status(400).json({ error: "Both username and tagline are required." });
+        }
 
         const summonerResponse = await axios.get(
-            `https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${playerName}/${tagline}`,
+            `https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${encodeURIComponent(username)}/${encodeURIComponent(tagline)}`,
             { headers: { "X-Riot-Token": RIOT_API_KEY } }
         );
 
         const puuid = summonerResponse.data.puuid;
-
         const numGames = 40;
 
         const matchHistoryResponse = await axios.get(
@@ -47,7 +49,7 @@ app.get("/api/match-history/:username", async (req, res) => {
             matches.push(matchDataResponse.data);
         }
 
-        const playerData = extractPlayerData(playerName, matches);
+        const playerData = extractPlayerData(username, matches);
         const analyzedPlayerData = analyzePlayerData(playerData);
         const topAndBotResults = getTopAndBottomX(analyzedPlayerData, 3);
         const readableResult = mapResults(topAndBotResults);
