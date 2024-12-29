@@ -9,7 +9,7 @@ document.getElementById("usernameForm").addEventListener("submit", async (e) => 
     loading.style.display = "flex";
 
     try {
-        const response = await fetch(`http://localhost:3000/api/match-history/${encodeURIComponent(username)}`);
+        const response = await fetch(`https://tft-match-history-analyzer.herokuapp.com/api/match-history/${encodeURIComponent(username)}`);
         const data = await response.json();
 
         // Hide loading spinner
