@@ -2,6 +2,7 @@
   "name": "tft-helper",
   "version": "1.0.0",
   "main": "index.js",
+  "homepage": "https://yoonpatrick3.github.io/tft-match-history-analyzer",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
